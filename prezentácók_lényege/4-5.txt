@@ -1,0 +1,144 @@
+unset csapat; x=${csapat-Újpest} # ha csapat nincs, x=Újpest
+• inicializálás ha nem létezik
+• x=${csapat=Újpest} # csapat is változik!
+• echo $x a legjobb! # ???
+• y=${csapat?Szia}
+# ha csapat nem definiált, a Szia kiírásra
+kerül, majd kilép a shell, y nem kap új értéket!
+• y=${csapat+Újpest} # ha csapat definiált, y=Újpest
+
+` parancs` parancsot végrehajtja, parancs kimenete kerül a
+helyére
+• Bash shellben: $(parancs)
+• ki_vagyok=`whoami` # $(whoami)
+• a=`date` ; b=‘date’ #
+• echo $a # ???
+• echo $b # ???
+• A date szó lesz az eredmény.
+• eval $b
+#man eval,
+• Ugyanaz az eredmény, mintha a parancs $b lenne eval nélkül!
+• Egyetlen művelet létezik: szöveg összefűzés
+Aritmetikai műveletek
+• let utasítás, a bash része, régi sh-ban nincs
+• a=2; let b=a+1; echo $b # eredmény 3
+• expr utasítás
+• expr $a op $b PL: expr 3 \* 4 !!!
+• op: <,<=,>,>=,!=,=,+,-,*,/,% (mod)
+• Javasoljuk az expr használatát kompatibilitás miatt!
+• bc parancs (szűrő)
+• C nyelv jellegű bemeneti szöveget vár
+• Létezik ciklus, szögfüggvények, fv definíció,stb
+• Példa: echo 2*16 | bc #32
+Shift utasítás
+• A paramétereket eggyel balra lépteti.
+• Ez $1-et kidobja, majd balra lépnek egyet a paraméterek,$2->$1,… $10->$9 ($10 –be $11
+kerül, ha van)
+• Jellemző feldolgozás ciklus segítségével.
+
+$$ - A futó program PID értéke!
+• $! - A háttérben utoljára végrehajtott program PID-je!
+• $- - A shell kapcsolói . ?????
+
+test utasítás! Ezt az utasítást gyakran a []
+karakterekkel helyettesítik!
+• test operandus1 operátor operandus2 # fontos a helyköz!
+• Vagy: [ operandus1 operátor operandus2 ] # itt is fontos a helyköz, [ után és ]
+előtt is!
+test, vagy [ … ] logikai vizsgálat
+• 0 – igaz, 1- hamis, echo $?
+• true – igaz parancs, exit 0
+• false – hamis parancs, exit 1
+• -lt,-gt.-le,-ge,-eq,-ne numerikus vizsgálat
+• [ $x –lt 5 ]
+• -f file, -d dir file vagy könyvtár létezés
+• -o, vagy, -a az és operátor, ! a tagadás
+• -r,-w,-x fájl read,write,execute jog megléte
+Szöveg összehasonlítás:
+• =, != azonos, nem azonos sztring vizsgálat
+• test $a = $b # igaz, ha $a és $b azonos szöveg
+• test $a != $b # igaz, ha $a és $b nem azonos szöveg
+• test -z $X # igaz, ha $X szöveg hossza 0, üres sztring
+• test -n $X # igaz, ha $X string hossza nem 0, ha nem üres
+• [ -n $X ] # fontos a helyköz!!!!
+• Teljes referenciához: man test
+
+if [10 -gt 5];then
+	echo 5
+else
+	echo 10
+fi
+if nemsikeres then másikparancs fi
+• nemsikeres || másikparancs
+• if sikeres then másikparancs fi
+• sikeres && másikparancs
+case $alma in
+idared) echo az alma idared
+;;
+golden) echo az alma golden
+;;
+*)
+echo ismeretlen alma
+;;
+esac
+
+for változó in alma körte barack
+do
+ utasítások
+done
+
+seq 2 6 # 2,3,4,5,6
+
+Bash - FOR
+• for x in $(date)
+# Bash parancsbehelyettesítés
+• do
+• cat $x
+• done
+• for ((i=1;i<10;i++))
+# C stílusú for ciklus
+• do
+• echo $i
+• done
+• Törekedjünk a klasszikus(sh) ciklus használatra!
+
+while utasítások
+do
+# utasítás igaz, végrehajtjuk a ciklus magot
+utasítások
+done
+
+until
+utasítások
+do
+utasítás(ok)
+done
+• Több utasítás is lehet az until után,ha az utolsó hamis, akkor
+végrehajtja a ciklusmagot!
+
+BASH: Select
+
+break
+• continue
+• Hatására a ciklusmag hátralévő részén átugrik, majd folytatódik a ciklus
+végrehajtás
+
+C stílusú függvény,
+paramétereit a shell
+scripthez hasonlóan
+dolgozza fel.
+• Paramétereket nem
+jelölhetünk!
+• Függvény visszatérési
+értéket a return utasítással
+adhatunk meg!
+unset –f fvnev # fv törlése
+Sh fvpelda # ha nincs futási jog, akkor is futtatja a scriptet!
+• Sh –v fvpelda
+• -v kiírja a parancsot végrehajts előtt. A teljes fv-t is!
+• Sh –x szamolvas
+• A végrehatási szál utasításait írja ki. A –v a teljes elágazást kiírja, míg a –x a
+tesztelt logikai kifejezéseket írja csak.
+• Sh –n szamolvas
+• Szintaktikus ellenőrzés
+

@@ -1,0 +1,82 @@
+Speciális fájlnév hivatkozások
+Speciális karakterek: *,?,[],!
+• ? egyetlen karakter helyettesítés
+• * tetszőleges karakter helyettesítés (0 is)
+• * nem helyettesíti a fájl elején álló pontot!
+• [abc] a felsorolt jelek közül egy
+• [!abc] nem a felsorolt karakterek közül egy
+• [A-Z] nagybetű
+• [1-9] 1,9 közti szám
+
+Alapvető parancsok I.
+• ls, ls –l, ls –al
+#könyvtár tartalom
+• pwd, cd, mkdir, rmdir #könyvtár műveletek
+• chmod, chown, chgrp, umask
+# jogosultság
+• passwd # jelszó állítás
+• cp, mv, rm, ln
+# fájl műveletek
+• ln –s
+#soft link
+• mail, telnet(ssh), ftp, nfs(mount) #arpanet
+• ssh név@host
+• echo Hajrá Fradi! # Képernyőre (std output) írás
+• man ls # ls parancs manuál, help!
+who, whoami #ki van bejelentkezve
+• talk usernév [terminál] # beszélgetés kezdeményezés
+• write user [tty]
+• mesg no # kezdeményezés tiltása
+• clear – karakteres képernyő törlése
+• date #dátum, idő kiírása
+• touch filename # ha nem létezik létrejön különben idő módosul.
+• finger user #felhasználói információ kiírása
+find – keresés
+• find . –name alma.fa
+• tar (tape archive) –kulcs [f file] fájlok
+• fontosabb kulcsok:
+• c, create, archive létrehozás
+• x, eXtract, kivesz,visszatölt archivumból
+• t, tartalom kiírása
+• v, képernyőre írja a file neveket
+• Példa: tar –cvf alma.tar *.txt
+• tar –xvf alma.tar *
+• touch fájlnév #módosítás idő állítás, vagy üres fájl
+ELTE
+I N FO R M AT I K A
+• Fájl tartalom módosítást lásd szövegszerkesztés, output átirányításnál.
+• cat, head, tail
+# fájl tartalom megnézés
+• more, lapozás előre, less lapozás előre, hátra
+• read a
+# billentyűzetről az a nevű változóba olvas be enterig
+• read a b # a és b változóba olvas be, a-ba az első helyközig olvas, majd a többi elem b-be kerül
+• line – a bemenet egy sorát a kimenetre írja
+• diff file1 file2 # fájlok összehasonlítása
+• zip, unzip, gzip, tömörítés
+• zip alma.zip *.txt
+# alma.zip-be tömöríti az összes txt kiterjesztésű fájlt.
+Hozzáférési jogosultságok
+umask, azon bitek megadása, melyekhez nem adunk jogot
+• setuid, parancs a fájl jogaival fut, nem a futtató jogaival (x helyett S )
+• setgid, parancs a fájl csoport jogaival fut
+• sticky bit, fájl, könyvtárban csak saját fájl törölhető
+GUID bit könyvtáron:
+a könyvtárban létrejövő
+új fájl nem az
+elsődleges hanem az
+aktuális könyvtár
+csoportjának
+tulajdonába kerül!
+ACL (Access Control List)
+• setfacl – beállítás
+• setfacl –R –m u:Pityu:rwx alma.fa
+• setfacl –d –m u:Pityu:rwx konyvtar
+• setfacl –b alma.fa
+• Bővebben: man
+# rekurzívan, modify
+# konyvtar-ban keletkező új fájlok öröklik
+# a d(efault) jogokat
+# ACL jogok törlése
+• getfacl – beolvasás
+• getfacl alma.fa

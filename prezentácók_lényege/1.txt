@@ -1,0 +1,38 @@
+1949 – EDVAC (Electronic Discrete Variable Automatic
+Computer)- Kettes számrendszer, digitális elv
+• 1964: IBM System/360
+• Hazai vonatkozás: DEC PDP11/40- KFKI TPA 1140
+• Soros terminálok, Fortran fordító, modularitás, „szolid”
+méret!
+• Kialakul az operációs rendszer!
+Mikroprocesszorok – Mikrokontrollerek
+• Milyen gyors? MHz, GHz
+• CISC-RISC
+• Hány bites?
+• Mai mikroprocesszorok gyakorlatig mind 64 bitesek.
+• A mikrokontrollerek viszont jellemzően 8 bitesek!
+• Cache szerepe a mikroprocesszorban!
+• TLB szerepe a mikroprocesszorban!
+• Neumann architektúra
+• Harvard architektúra
+• (adat, utasításmemória külön)
+Hogy tároljuk a diszkrét értékeket?
+• Volt 10-es számrendszerbeli ábrázolás is (1946,ENIAC).
+• Azóta gyakorlatilag a 2-es (bináris) számrendszer a meghatározó!
+Egész számok ábrázolása – jellemzően 4 byte-on tároljuk
+• Negálás: egy bit „ellenkezője” annak negáltja (0->1, 1->0)
+• Egy szám negatív változatát úgy kapjuk ha negáljuk a biteket!
+• -x = negált x
+• Jellemzője: 2 nulla van! 
+• 1 bájton így -127 +127 közötti számok ábrázolhatók!
+• Kettes komplemensű ábrázolás
+• -x = negált x +1
+• Egy nulla, -128 +127 közti számok egy bájton.
+• Egyes komplemensű ábrázolás: első bit legyen az előjel!
+Legyen a szám normál alakja: +/- M * A^K, M<1
+• M- mantissza, A-hatvány alap, K- hatványkitevő(karakterisztika)
+• Példa: A legyen 10, akkor az 517 alakja: 0,517 * 10^3
+• Példa: A=2 esetén, 517= 1000000101 -> 0,1000000101*2^10
+• 4 bájtos ábrázolás: 1 bit->előjel, 8 bit->karakterisztika, 23 bit mantissza(IEEE754)
+• 8 bájtos ábrázolás: 1 bit->előjel, 11 bit->karakterisztika, 52 bit mantissza(IEEE754)
+• Mekkora a legnagyobb ábrázolható szám?

@@ -1,0 +1,127 @@
+read parancs
+• Példa: read alma
+#alma változóba olvas enterig
+• read korte; echo $korte # ok
+• echo szia|read a; echo $a
+# üres, a read nem szűrő
+• line parancs - szűrő
+• Standard inputról olvas egy teljes sort, amit a standard outputra ír
+• echo szia|`line`
+• echo alma barack|for i in `line` ; do echo $i; done # eredmény: alma, barack külön sorban
+
+IFS - Internal Field Separator
+Az alapértelmezett elválasztó helyett(helyköz, tab) új elválasztó
+karakter definiálása!
+• Célszerű egy karaktert megadni!
+• IFS=:
+#kettőspont az új elválasztó 
+#IFS=:
+#a:b
+#IFS=' '
+#a b
+
+sed
+s/mit/mire/hányadik (g mindre)
+d
+Törli a sort a mintatérből.
+p
+Kiírja a mintatér aktuális tartalmát a standard outputra.
+Hozzáfűzés: a
+• Pl: cat osztaly|sed 'a\alma‘ # új sorként az alma, minden
+sor után
+Beszúrás: i
+• Pl: cat osztaly|sed '2,3i\alma‘ # 2,3 sor elé alma
+y – minta karakter csere: echo papagáj|sed ’y/ag/uh/’ #pupuháj
+• q – kilépés, adott címsor után a sed kilép
+• :cimke – címke készítés
+• b címke – feltétel nélküli ugrás
+• t címke – feltételes ugrás, ha volt sikeres csere
+
+Minden parancs egybetűs. A betűt megelőzheti a sor(ok) megadása, amely(ek)re azt végre kell hajtani. Ha elmarad, minden sorra végrehajtódik az utasítás. A parancs betűjét követheti(k) a parancs paramétere(i).
+A sorok egy vagy két paraméterrel adhatók meg. Az utóbbi sortartományt jelent kezdő- és végsor alakban.
+A sorparaméter megadható sorszámmal vagy két / közé zárt reguláris kifejezéssel.[2] A sortartomány két tagja különböző módon is leírható, második sorparaméter pedig lehet az elsőhöz relatív +N ill. -N alakban.
+A betű előtti ! megfordítja a sorkijelölést: ezekre nem hajtódik végre az utasítás.
+
+    -e: szerkesztőparancs. Több -e paraméter lehet a parancssorban.
+    -f: parancsfájl. A sed ebből olvassa a szerkesztő parancsokat.
+    -n: a mintatér nem íródik ki a parancsok feldolgozása után; lásd p parancs.
+
+x~y – x. sor majd utána minden y. sor!
+• Példa: 3~2/3/9/g # a 3. sortól kezdve minden második sor!
+
+• n: sorszám, a cserét az n. mintán kell elvégezni, ha elmarad, n=1. Ha n
+nagyobb mint utolsó előfordulás, a csere nem csinál semmit!
+• g: Az összes mintát le kell cserélni.
+• p: Kilistázza az aktuális sort! (pg együtt is lehet)
+• w fájl: Menti fájlba(hozzáfűz) az aktuális sort!
+• r fájl: Beolvassa a bemenetre a fájl tartalmát!
+• A
+
+#!/bin/sed -f
+#
+# Az első és második sorban számok mögé írunk
+1,2s/\([1-9][1-9]*\)/&.kívánság\1/g # minden talált szám után!!!
+# A második sor után quit!
+
+
+#AWK
+olvasd el az első felyezetét ennek ment a prezentáció nem sokat magyaráz
+https://www.gnu.org/software/gawk/manual/html_node/index.html
+kiegészités hozzá:
+változók:
+FS (field speparator) olyan mint az IFS a record-on belűl
+RS (record speparator) a record-okat mi választaja el alapból \n igy soronként megy végig
+NF mezők száma a recordban
+NR beolvasot sorok száma
+FNR ugyanez de fojtatodik ha több file van
+OFS mint az FS de a kimenetben
+ORS mint az RS de a kimenetben
+vannak ilyen tömbök: t[„egy”]=1; print t[„egy”];
+Többdimenziós tömbök: tt[1,2]=3;
+fügvények:
+length(t)
+delete t[4]
+int(szám)# egészrész , print int(3.7) #3
+• sqrt(szám)
+# négyzetgyök
+• sin(x), cos(x)
+# sin, cos függvények, x radiánban van!
+• rand()
+# ]0,1[ intervallumban véletlenszámot generál
+• x=int(10*rand()) # 0,1,…9
+• exp(x), log(x) # e ** x, ln(x)
+• atan2(x,y) # arc. tangens x/y
+split(„ali:pali:robi”, n, „:”); print n[1] #ali
+sprintf(sz, „minta”,változók); # mint C-ben az sprintf
+• system(„parancs”) – op. rendszer par. futtatás
+• Pl: {system(”date >datum”) }
+• File olvasás:
+• getline <"/home/adat”; print $0;
+• Következő getline, következő sor.
+
+müveletek:
++, -,++,--, *, /, %,… - szokásos műveletek
+• Logikai érték mint C-ben
+• !=,==, <,> - logikai operátorok
+• && logikai és, || logikai vagy, ! tagadás
+• ~, !~ minta illeszkedés, nem illeszkedés
+• A jobb oldali operandus lehet reguláris kifejezés is /…/.
+• A $0 ~ /reg.kif/ alak rövidítve: /reg.kif/ , emiatt szerepel az awk
+blokkok előtt csak így!
+• ** vagy ^ hatványozás, pl: 2**3 #8
+
+Elágazás
+• if (x % 2 == 0) print "x páros„; else print "x páratlan”;
+• Többirányú elágazás
+• Switch (c) { case „a”:… }; # mint C-ben
+• Ciklusok, mint C-ben
+• while (kif) utasítás
+• do … while (kif)
+• for(kif1;kif2;kif3) utasítás
+• for (i in tömb)
+
+van olyan kapcsoló hogy --csv 
+
+BEGIN blokk, a soronkénti feldolgozás előtt hajtódik végre
+• END blokk, a soronkénti feldolgozás után hajtódik végre
+• Minta {soronkénti blokk}
