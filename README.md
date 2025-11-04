@@ -1,2 +1,2 @@
 # sz-mrend-jegyzet
-ámitógépes rendszerek jegyzet
+számitógépes rendszerek jegyzet
