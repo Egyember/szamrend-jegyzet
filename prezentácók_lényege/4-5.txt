@@ -124,14 +124,13 @@ break
 végrehajtás
 
 C stílusú függvény,
-paramétereit a shell
-scripthez hasonlóan
-dolgozza fel.
-• Paramétereket nem
-jelölhetünk!
-• Függvény visszatérési
-értéket a return utasítással
-adhatunk meg!
+paramétereit a shell scripthez hasonlóan dolgozza fel.
+• Paramétereket nem jelölhetünk!
+• Függvény visszatérési értéket a return utasítással adhatunk meg!
+#foo() {
+#echo $0
+#return 0
+#}
 unset –f fvnev # fv törlése
 Sh fvpelda # ha nincs futási jog, akkor is futtatja a scriptet!
 • Sh –v fvpelda
