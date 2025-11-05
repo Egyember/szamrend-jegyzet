@@ -3,7 +3,7 @@ read parancs
 #alma változóba olvas enterig
 • read korte; echo $korte # ok
 • echo szia|read a; echo $a
-# üres, a read nem szűrő
+# üres, a read nem szűrő (implementáció fűggő)
 • line parancs - szűrő
 • Standard inputról olvas egy teljes sort, amit a standard outputra ír
 • echo szia|`line`

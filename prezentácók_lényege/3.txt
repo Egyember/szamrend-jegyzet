@@ -1,7 +1,8 @@
 jobs – listázza a futó parancsainkat(„jobjainkat”)
 • ps
+pásd még: ps -aux #mindent listázon
 Folyamatok, prioritások
-• A Unix, Linux prioritás alapú folyamatkezelést végez!
+• A Unix, Linux prioritás alapú folyamatkezelést végez.
 • POSIX4 – IEEE1003.1b (1993), Valós idejű kiterjesztés
 megjelenés
 • Két prioritás lista
@@ -11,10 +12,13 @@ megjelenés
 • A lista közös értelmezése a következő:
 • 99,98…1,-20,-19,..0,1…,19, ezt gyakran 140-es prioritás intervallumnak neveznek, amiben
 különböző eltolások(mapping) lehetségesek.
+időziteten fuatás:
 at – a parancs használható, ha az atd szolgáltatás fut.
 • at parancs a standard inputról várja a bemenetét(a futtatandó parancsot)
 • at now + 5 minutes <parancsfájl # az at-nek az időpont kell mint paraméter, amit
 sokféleképpen megadhatunk, lásd man!
+(coron crontab..std is ugyanez de rendszeresen meg  más a syntax)
+fusson tovább ha  kilépsz:
 nohup parancs
 • nohup parancs & # lehet & nélkül is, csak akkor előtérben fut!!!
 • A parancs kimenete a nohup.out állományba kerül!

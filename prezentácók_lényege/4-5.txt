@@ -14,8 +14,7 @@ helyére
 • a=`date` ; b=‘date’ #
 • echo $a # ???
 • echo $b # ???
-• A date szó lesz az eredmény.
-• eval $b
+• eval $b # végrehajta pl eval ls
 #man eval,
 • Ugyanaz az eredmény, mintha a parancs $b lenne eval nélkül!
 • Egyetlen művelet létezik: szöveg összefűzés
@@ -28,7 +27,7 @@ Aritmetikai műveletek
 • Javasoljuk az expr használatát kompatibilitás miatt!
 • bc parancs (szűrő)
 • C nyelv jellegű bemeneti szöveget vár
-• Létezik ciklus, szögfüggvények, fv definíció,stb
+• Létezik ciklus, szögfüggvények, fv definíció,stb (egyébként ez egy gész programozási nyelv https://en.wikipedia.org/wiki/Bc_(programming_language))
 • Példa: echo 2*16 | bc #32
 Shift utasítás
 • A paramétereket eggyel balra lépteti.
