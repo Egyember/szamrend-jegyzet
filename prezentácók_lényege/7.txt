@@ -1,0 +1,151 @@
+ez az előadás nem történt meg.
+Unix-Linux boot
+1. uefi vagy bios elinditja valahogy a bootloader-t
+a dián a LILO a példa de manapság már a GRUB vagy a systemd-boot a gyakoribb.
+2. a bootloader betölti a kernelt (és modern linuxdisztribuciókban ezzel együtt egy minimális ramdiszket amiről betölt plusz kernel modulokat és innen indul az init is később ennek elönye hogy van file rendszer mielött a root particiót csatolná bootolás közben)
+3. init rendszer
+-régebbi megoldások
+	-sysvinit
+	különböző futási szintek vannak
+		Futásszintek 0- rendszeráll, 1- single user mód,
+		2,3,4,5- normál szintek, 6- reboot, 2- default (multi user)
+		A 2-5 szinteket minden rendszer sajátosan definiálja
+		itt a szintekhez csülönböző scripteket lehet rendelni amiknek lehetnek függöségei
+jelenleg a legelterjettebb init rendszer a systemd
+	Itt kölönböző szolgáltatások vannak definiálva ezeknek lehetnek fügöségeik.
+	Ezen felül vannak "target"-et amik megkövetelnek különböző szolgáltatásokat. Bootloásor az alapértelezett "target" eléréséhez elindit minden szolgáltatást ezen felül ha vanamit külön engedélyeztünk akkor azt is.
+
+bövebben:
+https://wiki.archlinux.org/title/Arch_boot_process
+https://wiki.archlinux.org/title/Systemd
+https://wiki.gentoo.org/wiki/Sysvinit
+https://en.wikipedia.org/wiki/Init
+
+Unix-Linux konfiguráció
+Központi management programok
+	SMIT, YAST,YAST2
+
+/etc könyvtár -itt találthatü linuxon a különböző config file-ok 90%-a
+gyakorlatban ha valamit egy linux szerveren át akarsz álittani akkor ssh-n csatalakozol átírod a configok majd ujrainditod a szolgáltatást.
+Felhasználó management
+Központi adminisztrációs eszköz
+• Létezik minden Unix rendszeren
+• Kényelmes, könnyű használat
+• Hátrány: nagy létszámnál nehézkes, lassú
+Kézi módszer
+• /etc/passwd, /etc/shadow kézi módosítása
+• Létezik adduser, useradd vagy hasonló nevű parancs.
+(lehet LDAP-n keresztül akár AD szervert is használni vagy más központi megoldást amit támogyatja)
+bövebben:
+https://wiki.archlinux.org/title/Users_and_groups
+
+
+Többféle hálózati kapcsolódási lehetőségek lehetnek!
+• Soros port (régi routerek és egyébb wan eszközök használták nagyrészt vagy betárcsázós net-nél a modemig ez volt)
+• Ethernet kártya-RJ45 (az rj-45 a csatlakozó. A kábel az utp. Az eternet meg egy prtotokol. Innentöl hálókártyákra NIC -ként hívatkozok)
+• WIFI (kártya)
+• Mobil adatkapcsolat (4G,LTE,…)
+• Bluetooth (ez csak pan vagy nagyon maximum lan)
+
+Törióra:
+ARPANET
+A DARPA fejelsztette a 60-as években. Az ip protokolra emlékeztető protokolt haszálnt (NCP) célja hogy az USA egyetemeiközött felgyorsitsa az információ áramlását.
+1983-ban átált tcp/ip-re
+nagyrészt telent nfs email -re volt használva
+
+OSI modell (kiszortam a kakuktojás példákat)
+• 1. fizikai réteg – ethernet (az llc része), t2 vagy ds3
+• 2. adatkapcsolati réteg – L2TP, MAC (ez az eternet protokol része), stb.
+• 3. hálózati réteg – IPv4, IPv6
+• 4. szállítási réteg – TCP,UDP
+//inentöl lényegi különbség nincs átalában egyben alakalmazási rétegként hívatkozunk erre mert a hálózatott nem igazán érinti
+• 5. munkamenet réteg (session, együttműködés, viszonylati) – SSL, RPC stb.
+• 6. megjelenítési réteg – HTML, CSS
+• 7. alkalmazási réteg – HTTP,SSH,Telnet stb.
+
+TCP/IP
+#---------------------#-----------------------#
+| alkalmazási réteg   |                       |
+| megjelenítési réteg |                       |
+| munkamenet réteg    | alkalmazási réteg     |
+#---------------------#-----------------------#
+| szállítási réteg    | szálitási réteg       |
+#---------------------#-----------------------#
+| hálózati réteg      | hálózati réteg        |
+#---------------------#-----------------------#
+| adatkapcsolati      |                       |
+| fizikai réteg       | Hálózat elérési réteg |
+#---------------------#-----------------------#
+ha nincs jobb dolgod akkor RFC1122 RFC1123
+
+Hálózati topológiák
+Csillag topológia - Ma gyakorlatilag a lokális hálózatok ezt
+használják a dia szerint. Inkább kiterjesztett csillag vagy fa a realisztikusabb.
+Fa topológia- a csillagok hierarhikus összekapcsolása
+Gyűrű topológia – redundancia miatt lehet használni stp-vel. Eredetileg token ring hálózatokban használták ez is törióra
+Busz topológia - bnc (vékony koax)
+Lánc topológia
+#---------------------------------------------------------------------------------------------------------------------------------#
+|   #--#            #--#                                                                                                          |
+|   |pc|-----#  #---|pc|                                                                                                          |
+|   #--#     |  |   #--#                               fa                                    #--#            #--#                 |
+|         #--|--|--#                                                                         |pc|------------|pc|                 |
+|         | switch |                                        #--|--|--#                       #-|#            #-|#                 |
+|         #---|----#                              #---------| switch |--------#                |               |                  |
+|   #--#      |                                   |         #---|----#        |                |  gyürű        |                  |
+|   |pc|------#                                   |                           |                |               |                  |
+|   #--#                                          |                           |              #--#            #--#                 |
+|                                             #---|----#                 #----|---#          |pc|------------|pc|                 |
+|           csillag                           | switch |                 | switch |          #--#            #--#                 |
+|                                             #|------|#                 #|------|#                                               |
+|                                              |      |                   |      |                                                |
+|                                             #|-#   #|-#                #|-#  #-|#                                               |
+|                                             |pc|   |pc|                |pc|  |pc|                                               |
+|                                             #--#   #--#                #--#  #--#                                               |
+|                       busz                                                                                                      |
+|          #--#------#-------#-------#-----#  <- 50 ohm terminátor                                                                |
+|             |      |       |       |                                                                                            |
+|            #|-#   #|-#    #|-#   #-|#                                                                                           |
+|            |pc|   |pc|    |pc|   |pc|                                                                                           |
+|            #--#   #--#    #--#   #--#                                                                                           |
+|                                                                                                                                 |
+#---------------------------------------------------------------------------------------------------------------------------------#
+
+Hálózati eszközök
+-SWITCH
+	mac címek alapját továbbitja a kereteket (keret alatt: https://www.slashroot.in/sites/default/files/PDU%20traveling%20through%20layers.png)
+-BRIDGE ilyet ne vegyél mert csak ront a hálózaton. Olyan mint egy switch csak rosszabb ha értdekel jobban kérdez meg.
+-ROUTER
+	ip csomagokat küld tovább a cél cím alaján. Ez szokot NAT-olni is.
+
+
+Számítógép IP címe,neve-DNS
+• Ahány hálózati kártya, annyi IP cím él.
+• Ha nincs a hálózaton tiltva, a ping
+ellenőrzi a kapcsolat meglétét!
+• DNS- Domain Name Service
+• Név – IP cím társítás
+• szamrend.inf.elte.hu – 157.181.161.38
+• B osztályú cím – elte.hu domain
+• TTL-Time To Live, amíg ez >0 a
+csomag él!
+
+privát címek
+• A osztály: 10.0.0.0/8
+• B osztály: 172.16.0.0/12
+• C osztály: 192.168.0.0/16
+
+ipv4
+32-bit a publikus címek elfogytak
+(ugy szokás írni mint ahogy a privát címeket írtam)
+IPv6
+128 bites
+pl: 2015:0a0d:0102:1961:0324:fe01:03ab:0405
+átalában /64-es hálózatok
+RFC2640
+
+DHCP
+automatikus ipv4 kiosztás (van ipv6 -hoz is de ott nem kell (SLAAC))
+https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol
+
+még van apache2 példa konfig valamiért. azt olvasd el ha érdekel.

@@ -71,14 +71,31 @@ if nemsikeres then másikparancs fi
 • nemsikeres || másikparancs
 • if sikeres then másikparancs fi
 • sikeres && másikparancs
-case $alma in
-idared) echo az alma idared
-;;
-golden) echo az alma golden
-;;
-*)
-echo ismeretlen alma
-;;
+
+#&&
+#if sikeres;then
+#	másikparancs
+#fi
+
+#||
+#if sikeres;then
+#else
+#	másikparancs
+#fi
+
+case word in
+   pattern1)
+      Statement(s) to be executed if pattern1 matches
+      ;;
+   pattern2)
+      Statement(s) to be executed if pattern2 matches
+      ;;
+   pattern3)
+      Statement(s) to be executed if pattern3 matches
+      ;;
+   *)
+     Default condition to be executed
+     ;;
 esac
 
 for változó in alma körte barack
