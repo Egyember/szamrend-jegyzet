@@ -149,3 +149,6 @@ automatikus ipv4 kiosztás (van ipv6 -hoz is de ott nem kell (SLAAC))
 https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol
 
 még van apache2 példa konfig valamiért. azt olvasd el ha érdekel.
+
+ha van erről kérdés akkor tudok válaszolni valószinüleg
+https://www.credly.com/badges/24a258dd-bf35-480b-810e-65d45c6cbc08/public_url
