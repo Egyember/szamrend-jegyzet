@@ -1,0 +1,106 @@
+törióra:
+Múlt: IBM PC DOS – Disk Operating System
+• 86-DOS – egy CP/M klón, Seattle Computer Products
+• A Microsoft ezt megvette 1981-ben.
+• Átnevezéssel: MS-DOS , 1981
+• 1984 – Microsoft Windows mint az MS-DOS grafikus
+kiterjesztése.
+• 1993 – 32 bites rendszer, Windows NT (ezt a kernelt használja a windows 11 egy csak azóta electron app let a tálca meg lettek új bugok)
+• 1995 – Windows 95, Windows NT 4.0
+• Jelen: 2015-2020-2021 – Windows 10,11
+
+Windows kezelőfelület
+• Grafikus felület, parancsok indítása
+• Parancssor ablak (cmd) létezik
+• Minden parancs, installált program parancssorból is
+indítható!
+• Path környezeti változó 2 részből áll!
+User path + system path
+
+scripting:
+Batch:
+dosos dolgok összehackelve haonlóan a unixhoz
+• Az MS DOS rendszer részeként jelent meg!
+• Fő feladata: Parancsok összegyűjtése és indítása egy parancs
+a ‚batch’ parancs segítségével.
+• Ma is használt, bár ritkán!
+• Szöveges parancsok
+• Fájlnév kiterjesztés: .bat
+• Megjegyzés: rem
+• echo utasítás
+• call masik.bat
+• Kis-nagybetű azonos!
+• Változó definiálás: set a=5
+• Összes változó kiírása: set
+• Változó értéke: %név%, Pl: %a%
+• path parancs, %path% változó
+• prompt utasítás
+• %1, %9 a batch paraméterei
+• %0 a batch program neve
+• shift parancs, balra tolja a paramétereket
+• Címke definiálás: :cimke1
+• Ugrás egy cimkére: goto cimke1
+• Elágazás: if [not] feltétel utasítás
+• if errorlevel 5 goto ot
+• Igaz, ha az előző parancs visszatérési értéke nagyobb vagy egyenlő mint 5!!
+• if %a%==”5” goto 5
+• if exist fájlnév goto hat
+• Ciklus: for %%változó in (lista) do (utasítás)
+```
+rem for ciklus példa
+rem ne írja ki a parancsokat
+@echo off
+rem %%név formát kell használni!!!
+for %%i in (alma korte) do (
+echo %%i
+)
+rem egy file sorainak első szavait vegyük
+for /f %%j in (alma.txt) do (
+echo %%j
+)
+```
+autoexec.bat magától indul
+GPEDIT.MSC ez a csoportházirend szerkeztő ebben is lehet olyan szabályt csinálni hogy magától induljon valami
+
+Windows Script(ing) Host: (VB Script vagy JScript alapú)
+VB Script:
+ebben lehet office makrókat írni abból lehet ismerős
+• Windows 2000 szerverben jelenik meg– új script nyelv
+• Ami nem új, hiszen az MS Office 97-ben jelent meg mint új makró nyelv!
+• Általános script környezet (Visual Basic Script, JScript bár ez ritkán használt)
+• A mai Office környezet makró nyelve ugyanez!
+• .vbs kiterjesztés (.js is lehet, Jscript)
+• Leírás: MSDN dokumentáció
+• https://msdn.microsoft.com/en-us/library/9bbdkx3k(v=vs.84).aspx
+WSH példa
+• Készíteni kell egy .vbs vagy .js kiterjesztésű parancsállományt!
+• A WSH objektumelvű, Wscript a főobjektum!
+• Echo metódus
+```
+WScript.Echo("fradista cig...") :ez vallási kérdés
+```
+
+• Futtatás: Parancssorból vagy egér kattintás
+JScript:
+	A javascipt ie7-es változata csak rendszer szinten. csak nem lehet ennek hívni mert perel érte az oracle
+PowerShell:
+A jelenleg ajánlot script nyelv. Egyébként több platformra is létezik. pl lehet linuxra is telepiteni. (de inkább ne)
+A Microsoft új generációs script nyelve
+• Ingyenes, utólag kellett installálni XP, Vista alá, a WS 2008, 2012, Win7,Win8,Win10/11 része
+• Windows 7 alatt a Powershell 2.0 érhető el, de frissíthető
+• Windows Management Framework 4 is elérhető Win7 alá (9 éve nem támogatott jó lenne elvándorolni róla)
+• Get-PSSnapin – Megadja a PS verziót! (vagy $PSVersionTable változó)
+(Az ISE nem támogatott a PowerShell 6-os és újabb verzióban. És már long-term support módban van)
+
+• Dokumentáció: online help (get-help parancs)
+Powershell „változatok”
+• Alap (Core) (ez van linuxra is ha elvetemült valaki)
+• A szolgáltatások (MSSQL, Web, Exchange) saját kiegészítést (modult) adnak az alap rendszerhez!
+
+Set-ExecutionPolicy –ExecutionPolicy UnRestricted
+• Alapértelmezett: Restricted – nem engedélyezett a futtatás!
+• Lehetséges policy értékek: Allsigned, Remotesigned,Bypass
+• Unrestricted esetén a letöltött, nem aláírt script esetén rákérdez, Bypassnál ezt sem!
+• -scope process vagy currentuser vagy localmachine
+• Remotesigned: Internetről letöltött állományok esetén csak akkor futtatja, ha
+megbízható partner írta alá.
