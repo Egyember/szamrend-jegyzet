@@ -1,2 +1,2 @@
-# sz-mrend-jegyzet
+# számrend-jegyzet
 számitógépes rendszerek jegyzet
