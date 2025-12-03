@@ -186,6 +186,70 @@ write-host $a
 $a++
 } until ($a -gt 3)
 ```
+function név(par) { fvtörzs }
+
+```
+function nfaktor($n)
+{
+$f=1
+for($i=2;$i -le $n;$i++) {$f*=$i}
+return $f
+}
+
+nfaktor 10
+```
+function global:Where-BigProcess(
+	[int] $meret = 200MB,
+	[String] $property = “VirtualMemorySize”,
+	[String] $formatString = “Total {2} = {1}”
+){ body }
+
+vagy 
+
+function global:Where-BigProcess {
+	PARAM(
+		[int] $meret = 200MB,
+		[String] $property = “VirtualMemorySize”,
+		[String] $formatString = “Total {2} = {1}”
+	)
+	body
+}
+
+kötelező paraméter:
+function alma( [parameter(Mandatory=$true)] $név) { …}
+
+alapértelemzett érték:
+function alma($név="Kovács") { …}
+
+az args-ba is bekereülnek az fv paraméterek
+
+Pozíció szerinti paraméterek:
+alma „jonatán” 150 ”piros”
+
+Név szerinti paraméterek:
+alma –név golden –szín sárga
+
+ezt lehet keverni
+
+van dot sourcing:
+. fv
+. script
+
+beépitett váltózók:
+• $_ - aktuális csővezeték objektum, (foreach)
+• $? - előző parancs eredmény státusza, logikai
+• $home - felhasználó home könyvtára
+• $$ - előző parancssor utolsó szava
+• $^ - előző parancssor első szava
+• $host - aktuális kiszolgáló (nem egy név!!)
+• $myinvocation – aktuális futtatási információk
+• $pshome - PS install könyvtár
+• $profile – felhasználó profile fájl neve
+
+Saját modul (Script modul)
+.psm1 kiterjesztés
+MyDocuments\WindowsPowerShell\Modules
+Import-Module negy.psm1
 
 ezt csak ithagyom
 https://github.com/BenzoXdev/Fuck-Windows-Security
